@@ -6,7 +6,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch:'main',
+                    url:'https://github.com/RohanBojjapuri/pythoncicd.git'
             }
         }
 
