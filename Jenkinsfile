@@ -6,28 +6,39 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch:'main',
-                    url:'https://github.com/RohanBojjapuri/pythoncicd.git'
+                echo 'Checking out source code...'
+                checkout scm
             }
         }
 
         stage('Test') {
             steps {
-                bat 'python --version'
-                bat 'python -m unittest'
+                bat '''
+                echo Checking Python installation...
+
+                "C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" --version
+
+                echo Running unit tests...
+
+                "C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m unittest
+                '''
             }
         }
 
         stage('Run Application') {
             steps {
-                bat 'python app.py'
+                bat '''
+                echo Running Python application...
+
+                "C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" app.py
+                '''
             }
         }
     }
 
     post {
         success {
-            echo 'Python Pipeline Successful!'
+            echo 'Python Pipeline Executed Successfully!'
         }
 
         failure {
